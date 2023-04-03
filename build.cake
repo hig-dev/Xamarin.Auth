@@ -70,12 +70,12 @@ MSBuild
 
 #########################################################################################
 */
-#tool nuget:?package=vswhere
+#tool nuget:?package=vswhere&version=3.1.1
 
-#addin nuget:?package=Cake.Xamarin //&version=2.0.1
+#addin nuget:?package=Cake.Xamarin&version=4.0.0
 //#addin nuget:?package=Cake.Xamarin.Build //&version=3.0.6
-#addin nuget:?package=Cake.FileHelpers //&2.0.0
-#addin nuget::?package=Cake.Incubator //&version=1.6.0
+#addin nuget:?package=Cake.FileHelpers&version=6.1.3
+#addin nuget::?package=Cake.Incubator&version=8.0.0
 #addin nuget:?package=Xamarin.Nuget.Validator&version=1.1.1
 
 /*
@@ -548,13 +548,13 @@ Task ("source-nuget-restore")
                     {
                         nuget_restore_settings.ToolPath = nuget_4;
                         //NuGetRestore(source_solution, nuget_restore_settings);
-                        DotNetCoreRestore(source_solution);
+                        DotNetRestore(source_solution);
                     }
                     else
                     {
                         nuget_restore_settings.ToolPath = nuget_5;
                         //NuGetRestore(source_solution, nuget_restore_settings);
-                        DotNetCoreRestore(source_solution);
+                        DotNetRestore(source_solution);
                     }
                 }
                 else
@@ -632,8 +632,7 @@ Action<string,  MSBuildSettings> BuildLoop =
             msbuild_settings.Configuration = build_configuration;
             msbuild_settings.WithProperty
                                 (
-                                    "consoleloggerparameters",
-                                    "ShowCommandLine"
+                                    "consoleloggerparameters"
                                 );
 
             InformationFancy($"    MsBuildSettings.Properties:");
@@ -700,19 +699,19 @@ Action<string,  MSBuildSettings> BuildLoop =
                     "./source/Core/Xamarin.Auth.NetStandard16/Xamarin.Auth.NetStandard16.csproj",
                     nuget_restore_settings
                 );
-                DotNetCoreRestore
+                DotNetRestore
                 (
                     "./source/Core/Xamarin.Auth.NetStandard10.ReferenceAssembly/Xamarin.Auth.NetStandard10.ReferenceAssembly.csproj"
                 );
-                DotNetCoreRestore
+                DotNetRestore
                 (
                     "./source/Core/Xamarin.Auth.NetStandard16/Xamarin.Auth.NetStandard16.csproj"
                 );
-                DotNetCoreBuild
+                DotNetRestore
                 (
                     "./source/Core/Xamarin.Auth.NetStandard10.ReferenceAssembly/Xamarin.Auth.NetStandard10.ReferenceAssembly.csproj"
                 );
-                DotNetCoreBuild
+                DotNetRestore
                 (
                     "./source/Core/Xamarin.Auth.NetStandard16/Xamarin.Auth.NetStandard16.csproj"
                 );
